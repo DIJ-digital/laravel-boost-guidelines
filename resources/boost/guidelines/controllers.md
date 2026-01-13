@@ -1,10 +1,10 @@
-# Controller Conventions
+## Controller Conventions
 
-## Invokable Controllers
+### Invokable Controllers
 
 Use **invokable controllers** with a single `__invoke()` method per controller.
 
-## Structure
+### Structure
 
 Place controllers in: `app/Http/Controllers/{Resource}/{Action}Controller.php`
 
@@ -20,12 +20,12 @@ app/Http/Controllers/
     └── DestroyController.php
 ```
 
-## Creating Controllers
+### Creating Controllers
 
 ```bash
 php artisan make:controller {Resource}/{Action}Controller --invokable
 ```
 
-## Keep Controllers Thin
+### Keep Controllers Thin
 
 Controllers handle HTTP requests only. Delegate business logic to Services or Actions.
