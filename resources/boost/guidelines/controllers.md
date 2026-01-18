@@ -1,31 +1,20 @@
 ## Controller Conventions
 
-### Invokable Controllers
+### Guidelines
+- **Always** use invokable controllers (`__invoke`).
+- Store in `app/Http/Controllers/{Resource}/{Action}Controller.php`.
+- Keep controllers thin; delegate logic to Actions or Services.
+- Use Form Requests for all validation.
 
-Use **invokable controllers** with a single `__invoke()` method per controller.
+### Example implementation
+```php
+class StoreController extends Controller
+{
+    public function __invoke(StoreRequest $request, CreateUserAction $action): RedirectResponse
+    {
+        $action->handle($request->validated());
 
-### Structure
-
-Place controllers in: `app/Http/Controllers/{Resource}/{Action}Controller.php`
-
-Use **CRUD-style names** for controllers: `IndexController`, `ShowController`, `StoreController`, `UpdateController`, `DestroyController`.
-
+        return redirect()->route('users.index');
+    }
+}
 ```
-app/Http/Controllers/
-└── Resource/
-    ├── IndexController.php
-    ├── ShowController.php
-    ├── StoreController.php
-    ├── UpdateController.php
-    └── DestroyController.php
-```
-
-### Creating Controllers
-
-```bash
-php artisan make:controller {Resource}/{Action}Controller --invokable
-```
-
-### Keep Controllers Thin
-
-Controllers handle HTTP requests only. Delegate business logic to Services or Actions.
